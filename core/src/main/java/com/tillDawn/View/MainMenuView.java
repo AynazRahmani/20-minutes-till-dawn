@@ -29,7 +29,7 @@ public class MainMenuView implements Screen {
         this.profileButton = new TextButton("profile menu", skin);
         this.pregameButton = new TextButton("pregame menu", skin);
         this.scoreboardButton = new TextButton("scoreboard", skin);
-        this.exitButton = new TextButton("exit", skin);
+        this.exitButton = new TextButton("logout", skin);
 
         this.gameTitle = new Label("Main Menu", skin);
         gameTitle.setFontScale(2);
@@ -75,7 +75,7 @@ public class MainMenuView implements Screen {
         com.tilldawn.Main.getBatch().end();
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
-        controller.handleMainMenuButtons();
+        controller.handleButtons();
     }
 
     @Override

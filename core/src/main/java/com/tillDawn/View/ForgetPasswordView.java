@@ -14,6 +14,9 @@ public class ForgetPasswordView implements Screen {
     private Stage stage;
     private Table table;
 
+    private final Label question;
+    private final TextField answerField;
+
     private final Label title;
     private final TextField passwordField;
     private User user;
@@ -33,6 +36,9 @@ public class ForgetPasswordView implements Screen {
         passwordField = new TextField("", skin);
         passwordField.setPasswordMode(true);
         passwordField.setPasswordCharacter('#');
+
+        question = new Label(controller.getQuestion(), skin);
+        answerField = new TextField("", skin);
 
 
         changePasswordButton = new TextButton("Change password", skin);
@@ -54,6 +60,11 @@ public class ForgetPasswordView implements Screen {
         table.row().pad(50,0,50,0);
         table.add(title);
         table.row();
+
+        table.add(question);
+        table.row().pad(10,0,0,0);
+        table.add(answerField).width(700);
+        table.row().pad(10,0,10,0);
 
         table.row().pad(10,0,10,0);
 
@@ -116,5 +127,13 @@ public class ForgetPasswordView implements Screen {
 
     public void setErrorLabel(Label errorLabel) {
         this.errorLabel = errorLabel;
+    }
+
+    public TextField getAnswerField() {
+        return answerField;
+    }
+
+    public ForgetPasswordController getController() {
+        return controller;
     }
 }

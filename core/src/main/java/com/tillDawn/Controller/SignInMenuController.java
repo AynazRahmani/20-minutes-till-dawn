@@ -62,9 +62,7 @@ public class SignInMenuController {
                     return;
                 }
 
-
-                
-                com.tilldawn.Main.getMain().setScreen(new ForgetPasswordView(new ForgetPasswordController(), skin));
+                com.tilldawn.Main.getMain().setScreen(new ForgetPasswordView(new ForgetPasswordController(user), skin));
             }
         });
 

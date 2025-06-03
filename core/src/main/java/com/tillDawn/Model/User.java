@@ -1,11 +1,16 @@
 package com.tillDawn.Model;
 
+import com.tillDawn.Model.Enums.HeroType;
+import com.tillDawn.Model.Enums.WeaponType;
+
 public class User {
     public String username;
     public String password;
     public int securityQuestionIndex;
     public String securityAnswer;
     public String avatarPath;
+    private HeroType heroType;
+    private WeaponType weaponType;
 
     public User(String username, String password, int securityQuestionIndex, String securityAnswer, String avatarPath) {
         this.username = username;
@@ -13,6 +18,8 @@ public class User {
         this.securityQuestionIndex = securityQuestionIndex;
         this.securityAnswer = securityAnswer;
         this.avatarPath = avatarPath;
+        this.heroType = HeroType.SHANA;
+        this.weaponType = WeaponType.SMG;
     }
 
     public String getUsername() {
@@ -53,5 +60,21 @@ public class User {
 
     public void setAvatarPath(String avatarPath) {
         this.avatarPath = avatarPath;
+    }
+
+    public HeroType getHeroType() {
+        return heroType;
+    }
+
+    public void setHeroType(HeroType heroType) {
+        this.heroType = heroType;
+    }
+
+    public WeaponType getWeaponType() {
+        return weaponType;
+    }
+
+    public void setWeaponType(WeaponType weaponType) {
+        this.weaponType = weaponType;
     }
 }
