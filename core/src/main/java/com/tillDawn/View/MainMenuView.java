@@ -1,12 +1,152 @@
+//package com.tillDawn.View;
+//
+//import com.badlogic.gdx.Gdx;
+//import com.badlogic.gdx.Screen;
+//import com.badlogic.gdx.scenes.scene2d.Stage;
+//import com.badlogic.gdx.scenes.scene2d.ui.*;
+//import com.badlogic.gdx.utils.ScreenUtils;
+//import com.badlogic.gdx.utils.viewport.ScreenViewport;
+//import com.tillDawn.Controller.MainMenuController;
+//
+//public class MainMenuView implements Screen {
+//    private Stage stage;
+//    private final TextButton playButton;
+//    private final Label gameTitle;
+//    private final TextField field;
+//    public Table table;
+//    private final MainMenuController controller;
+//
+//    private final TextButton settingButton;
+//    private final TextButton profileButton;
+//    private final TextButton pregameButton;
+//    private final TextButton scoreboardButton;
+//    private final TextButton exitButton;
+//
+//    public MainMenuView(MainMenuController controller, Skin skin) {
+//        this.controller = controller;
+//        this.playButton = new TextButton("play", skin);
+//        this.settingButton = new TextButton("setting", skin);
+//        this.profileButton = new TextButton("profile menu", skin);
+//        this.pregameButton = new TextButton("pregame menu", skin);
+//        this.scoreboardButton = new TextButton("scoreboard", skin);
+//        this.exitButton = new TextButton("logout", skin);
+//
+//        this.gameTitle = new Label("Main Menu", skin);
+//        gameTitle.setFontScale(2);
+//        this.field = new TextField("this is a field", skin);
+//        this.table = new Table();
+//
+//        controller.setView(this);
+//    }
+//
+//    @Override
+//    public void show() {
+//        stage = new Stage(new ScreenViewport());
+//        Gdx.input.setInputProcessor(stage);
+//
+//        table.setFillParent(true);
+//        table.center();
+////        table.add(gameTitle);
+////        table.row().pad(10, 0 , 10 , 0);
+////        table.add(field).width(600);
+////        table.row().pad(10, 0 , 10 , 0);
+////        table.add(playButton);
+//        table.row();
+//        table.add(gameTitle).pad(20, 0, 35, 0);
+//        table.row();
+//        table.add(pregameButton).pad(15, 0, 15, 0);
+//        table.row();
+//        table.add(settingButton).pad(15, 0, 15, 0);
+//        table.row();
+//        table.add(profileButton).pad(15, 0, 15, 0);
+//        table.row();
+//        table.add(scoreboardButton).pad(15, 0, 15, 0);
+//        table.row();
+//        table.add(exitButton).pad(50, 0, 20, 0);
+//
+//        stage.addActor(table);
+////        table.setDebug(true);
+//    }
+//
+//    @Override
+//    public void render(float delta) {
+//        ScreenUtils.clear(0, 0, 0, 1);
+//        com.tilldawn.Main.getBatch().begin();
+//        com.tilldawn.Main.getBatch().end();
+//        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+//        stage.draw();
+//        controller.handleButtons();
+//    }
+//
+//    @Override
+//    public void resize(int width, int height) {
+//
+//    }
+//
+//    @Override
+//    public void pause() {
+//
+//    }
+//
+//    @Override
+//    public void resume() {
+//
+//    }
+//
+//    @Override
+//    public void hide() {
+//
+//    }
+//
+//    @Override
+//    public void dispose() {
+//
+//    }
+//
+//    public TextButton getPlayButton() {
+//        return playButton;
+//    }
+//
+//    public TextField getField() {
+//        return field;
+//    }
+//
+//    public TextButton getSettingButton() {
+//        return settingButton;
+//    }
+//
+//    public TextButton getProfileButton() {
+//        return profileButton;
+//    }
+//
+//    public TextButton getPregameButton() {
+//        return pregameButton;
+//    }
+//
+//    public TextButton getScoreboardButton() {
+//        return scoreboardButton;
+//    }
+//
+//    public TextButton getExitButton() {
+//        return exitButton;
+//    }
+//}
+//
+
+
+
 package com.tillDawn.View;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tillDawn.Controller.MainMenuController;
+import com.tillDawn.Model.App;
+import com.tillDawn.Model.User;
 
 public class MainMenuView implements Screen {
     private Stage stage;
@@ -20,19 +160,26 @@ public class MainMenuView implements Screen {
     private final TextButton profileButton;
     private final TextButton pregameButton;
     private final TextButton scoreboardButton;
+    private final TextButton continueButton; // NEW
     private final TextButton exitButton;
+
+    private final Skin skin;
 
     public MainMenuView(MainMenuController controller, Skin skin) {
         this.controller = controller;
+        this.skin = skin;
+
         this.playButton = new TextButton("play", skin);
         this.settingButton = new TextButton("setting", skin);
         this.profileButton = new TextButton("profile menu", skin);
         this.pregameButton = new TextButton("pregame menu", skin);
         this.scoreboardButton = new TextButton("scoreboard", skin);
+        this.continueButton = new TextButton("continue saved game", skin); // NEW
         this.exitButton = new TextButton("logout", skin);
 
         this.gameTitle = new Label("Main Menu", skin);
         gameTitle.setFontScale(2);
+
         this.field = new TextField("this is a field", skin);
         this.table = new Table();
 
@@ -46,11 +193,7 @@ public class MainMenuView implements Screen {
 
         table.setFillParent(true);
         table.center();
-//        table.add(gameTitle);
-//        table.row().pad(10, 0 , 10 , 0);
-//        table.add(field).width(600);
-//        table.row().pad(10, 0 , 10 , 0);
-//        table.add(playButton);
+
         table.row();
         table.add(gameTitle).pad(20, 0, 35, 0);
         table.row();
@@ -62,10 +205,47 @@ public class MainMenuView implements Screen {
         table.row();
         table.add(scoreboardButton).pad(15, 0, 15, 0);
         table.row();
+        table.add(continueButton).pad(15, 0, 15, 0); // NEW
+        table.row();
         table.add(exitButton).pad(50, 0, 20, 0);
 
         stage.addActor(table);
-//        table.setDebug(true);
+
+
+        Table topLeftTable = new Table();
+        topLeftTable.top().left();
+        topLeftTable.setFillParent(true);
+
+        Label usernameLabel;
+        Label scoreLabel;
+        User currentUser = App.getCurrentUser();
+        String path;
+
+        if (currentUser == null) {
+            usernameLabel = new Label("guest mode", skin);
+            scoreLabel = new Label("", skin);
+            path = "avatars/avatar2.png";
+        } else {
+            usernameLabel = new Label("Username: " + currentUser.getUsername(), skin);
+            scoreLabel = new Label("Score: " + currentUser.getScore(), skin);
+            path = currentUser.getAvatarPath();
+        }
+
+        Image avatarImage = new Image(new Texture(Gdx.files.internal(path)));
+        avatarImage.setSize(64, 64);
+        Label avatarLabel = new Label("avatar", skin);
+
+
+
+        topLeftTable.add(avatarImage).pad(10);
+        topLeftTable.row().pad(10, 0, 10, 0);;
+//        topLeftTable.add(avatarLabel).pad(0, 10, 5, 0).left();
+        topLeftTable.row();
+        topLeftTable.add(usernameLabel).pad(5).left();
+        topLeftTable.row();
+        topLeftTable.add(scoreLabel).pad(5).left();
+
+        stage.addActor(topLeftTable);
     }
 
     @Override
@@ -73,35 +253,17 @@ public class MainMenuView implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
         com.tilldawn.Main.getBatch().begin();
         com.tilldawn.Main.getBatch().end();
+
         stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
         stage.draw();
         controller.handleButtons();
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
+    @Override public void resize(int width, int height) {}
+    @Override public void pause() {}
+    @Override public void resume() {}
+    @Override public void hide() {}
+    @Override public void dispose() {}
 
     public TextButton getPlayButton() {
         return playButton;
@@ -127,8 +289,11 @@ public class MainMenuView implements Screen {
         return scoreboardButton;
     }
 
+    public TextButton getContinueButton() {
+        return continueButton; // NEW getter
+    }
+
     public TextButton getExitButton() {
         return exitButton;
     }
 }
-

@@ -4,24 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.tillDawn.Model.Enums.HeroType;
+import com.tillDawn.Model.Enums.WeaponType;
+
+import com.badlogic.gdx.utils.Array;
+
+import java.util.EnumMap;
 
 public class GameAssetManager {
     private static GameAssetManager gameAssetManager;
     private final Skin skin = new Skin(Gdx.files.internal("skin/pixthulhu-ui.json"));
 
-    private final String character1_idle0 = "1/Idle_0.png";
-    private final String character1_idle1 = "1/Idle_1.png";
-    private final String character1_idle2 = "1/Idle_2.png";
-    private final String character1_idle3 = "1/Idle_3.png";
-    private final String character1_idle4 = "1/Idle_4.png";
-    private final String character1_idle5 = "1/Idle_5.png";
-    private final Texture character1_idle0_tex = new Texture(character1_idle0);
-    private final Texture character1_idle1_tex = new Texture(character1_idle1);
-    private final Texture character1_idle2_tex = new Texture(character1_idle2);
-    private final Texture character1_idle3_tex = new Texture(character1_idle3);
-    private final Texture character1_idle4_tex = new Texture(character1_idle4);
-    private final Texture character1_idle5_tex = new Texture(character1_idle5);
-    private final Animation<Texture> character1_idle_frames = new Animation<>(0.1f, character1_idle0_tex, character1_idle1_tex, character1_idle2_tex, character1_idle3_tex, character1_idle4_tex, character1_idle5_tex);
+    private final EnumMap<HeroType, Animation<Texture>> heroAnimations = new EnumMap<>(HeroType.class);
+    private final EnumMap<HeroType, Texture> heroTextures = new EnumMap<>(HeroType.class);
+    private final EnumMap<WeaponType, Texture> weaponTextures = new EnumMap<>(WeaponType.class);
+
 
     private final String smg = "smg/SMGStill.png";
     private final Texture smgTexture = new Texture(smg);
@@ -30,7 +27,9 @@ public class GameAssetManager {
 
 
     private GameAssetManager(){
-
+        loadHeroAnimations();
+        loadHeroTextures();
+//        loadWeaponTextures();
     }
 
     public static GameAssetManager getGameAssetManager(){
@@ -40,17 +39,71 @@ public class GameAssetManager {
         return gameAssetManager;
     }
 
+
+    private void loadHeroAnimations() {
+        for (HeroType hero : HeroType.values()) {
+            Array<Texture> frames = new Array<>();
+            int heroNumber = hero.getHeroNumber();
+            for (int i = 0; i <= 5; i++) {
+                String path = heroNumber + "/Idle_" + i + ".png";
+                frames.add(new Texture(Gdx.files.internal(path)));
+            }
+            Animation<Texture> animation = new Animation<>(0.1f, frames, Animation.PlayMode.LOOP);
+            heroAnimations.put(hero, animation);
+        }
+    }
+
+
+    public void loadHeroTextures() {
+        for (HeroType hero : HeroType.values()) {
+            int heroNumber = hero.getHeroNumber();
+            heroTextures.put(hero, new Texture(Gdx.files.internal(heroNumber + "/Idle_0.png")));
+        }
+    }
+
+//    private void loadWeaponTextures() {
+//        for (WeaponType weapon : WeaponType.values()) {
+//            String path = "weapons/" + weapon.getName() + ".png"; // مثلاً: weapons/SMG.png
+//            weaponTextures.put(weapon, new Texture(Gdx.files.internal(path)));
+//        }
+//    }
+
+
     public Skin getSkin() {
         return skin;
     }
 
-    public Animation<Texture> getCharacter1_idle_animation() {
-        return character1_idle_frames;
+
+//    public Animation<Texture> getCharacterAnimation (HeroType heroType) {
+//
+//        ArrayList<Texture> frames = new ArrayList<>();
+//        for (int i = 0; i <= 5; i++) {
+//            Texture frame = new Texture(heroType.getHeroNumber() + "/Idle_" + i + ".png");
+//            frames.add(frame);
+//        }
+//        return new Animation<>(0.1, frames);
+//    }
+
+    public Animation<Texture> getHeroAnimation(HeroType hero) {
+        return heroAnimations.get(hero);
     }
 
-    public String getCharacter1_idle0(){
-        return character1_idle0;
+    public Texture getHeroTexture (HeroType heroType) {
+        return heroTextures.get(heroType);
     }
+
+    public String getHeroPath (HeroType heroType) {
+        if (heroType != null) {
+            System.out.println(heroType.getHeroNumber() + "/Idle_0.png");
+            return heroType.getHeroNumber() + "/Idle_0.png";
+        }
+        return "1/Idle_0.png";
+    }
+
+//    public Texture getWeaponTexture(WeaponType weapon) {
+//        return weaponTextures.get(weapon);
+//    }
+
 
     public Texture getSmgTexture(){
         return smgTexture;

@@ -14,8 +14,8 @@ public class WorldController {
     }
 
     public void update() {
-        backgroundX = playerController.getPlayer().getPosX();
-        backgroundY = playerController.getPlayer().getPosY();
+//        backgroundX = playerController.getPlayer().getPosX();
+//        backgroundY = playerController.getPlayer().getPosY();
         com.tilldawn.Main.getBatch().draw(backgroundTexture, backgroundX, backgroundY);
     }
 

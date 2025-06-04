@@ -11,6 +11,7 @@ public class User {
     public String avatarPath;
     private HeroType heroType;
     private WeaponType weaponType;
+    int score;
 
     public User(String username, String password, int securityQuestionIndex, String securityAnswer, String avatarPath) {
         this.username = username;
@@ -20,6 +21,7 @@ public class User {
         this.avatarPath = avatarPath;
         this.heroType = HeroType.SHANA;
         this.weaponType = WeaponType.SMG;
+        score = 0;
     }
 
     public String getUsername() {
@@ -76,5 +78,13 @@ public class User {
 
     public void setWeaponType(WeaponType weaponType) {
         this.weaponType = weaponType;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore(int amount) {
+        score += amount;
     }
 }
