@@ -22,6 +22,7 @@ public class Player {
     private int exp = 0;
     private int level = 0;
     private ArrayList<Ability> abilities = new ArrayList<>();
+    private boolean hpMaxIncreased = false;
 
     private boolean isPlayerIdle = true;
     private boolean isPlayerRunning = false;
@@ -110,7 +111,9 @@ public class Player {
     }
 
     public void addHp(int amount) {
-        this.hp += amount;
+        if (hp < heroType.getHp() || (hpMaxIncreased && hp == heroType.getHp())) {
+            this.hp += amount;
+        }
     }
 
     public void reduceHp(int amount) {
@@ -152,5 +155,13 @@ public class Player {
 
     public void addAbility(Ability ability) {
         abilities.add(ability);
+    }
+
+    public boolean isHpMaxIncreased() {
+        return hpMaxIncreased;
+    }
+
+    public void setHpMaxIncreased(boolean hpMaxIncreased) {
+        this.hpMaxIncreased = hpMaxIncreased;
     }
 }

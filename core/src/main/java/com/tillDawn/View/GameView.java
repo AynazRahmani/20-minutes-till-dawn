@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -33,6 +34,8 @@ public class GameView implements Screen, InputProcessor {
     private TextButton pauseButton;
     private Dialog pauseDialog;
     private InputMultiplexer multiplexer;
+    private ArrayList<Image> heartImages = new ArrayList<>();
+
 
     public GameView(GameController controller, Skin skin) {
         this.controller = controller;
@@ -187,6 +190,16 @@ public class GameView implements Screen, InputProcessor {
         multiplexer.addProcessor(hudStage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
+
+        int hp = controller.getPlayerController().getPlayer().getHp();
+        for (int i = 0; i < hp; i++) {
+            Image heart = new Image(new Texture("hp/hp.png"));
+            heart.setSize(30, 30);
+            heart.setPosition(20 + i * 35, Gdx.graphics.getHeight() - 80); // فاصله بین قلب‌ها
+            hudStage.addActor(heart);
+            heartImages.add(heart);
+        }
+
     }
 
 
@@ -218,6 +231,9 @@ public class GameView implements Screen, InputProcessor {
 
         hudStage.act(delta);
         hudStage.draw();
+
+        updateHeartsDisplay();
+
 
         if (controller.isPaused()) {
             pauseStage.act(delta);
@@ -275,4 +291,23 @@ public class GameView implements Screen, InputProcessor {
     public void updateTimerDisplay(int remainingSeconds) {
         timerLabel.setText("Time: " + remainingSeconds + "s");
     }
+
+
+    public void updateHeartsDisplay() {
+        int currentHp = controller.getPlayerController().getPlayer().getHp();
+
+        for (Image img : heartImages) {
+            img.remove();
+        }
+        heartImages.clear();
+
+        for (int i = 0; i < currentHp; i++) {
+            Image heart = new Image(new Texture("hp/hp.png"));
+            heart.setSize(30, 30);
+            heart.setPosition(20 + i * 35, Gdx.graphics.getHeight() - 80);
+            hudStage.addActor(heart);
+            heartImages.add(heart);
+        }
+    }
+
 }

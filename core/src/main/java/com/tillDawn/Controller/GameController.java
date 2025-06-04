@@ -115,4 +115,10 @@ public class GameController {
     public void cheatAddExp() {
         playerController.getPlayer().addExp(10);
     }
+
+    public void increaseHpMax() {
+        playerController.getPlayer().setHpMaxIncreased(true);
+    }
+
+    
 }
