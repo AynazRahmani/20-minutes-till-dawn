@@ -31,4 +31,12 @@ public class Weapon {
     public void setAmmo(int ammo){
         this.ammo = ammo;
     }
+
+    public WeaponType getWeaponType() {
+        return weaponType;
+    }
+
+    public void setWeaponType(WeaponType weaponType) {
+        this.weaponType = weaponType;
+    }
 }

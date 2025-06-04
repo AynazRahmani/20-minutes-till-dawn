@@ -5,9 +5,8 @@ import com.tillDawn.Model.Enums.WeaponType;
 import com.tillDawn.Model.GameAssetManager;
 import com.tillDawn.Model.Player;
 import com.tillDawn.Model.Weapon;
+import com.tillDawn.View.EndMenuView;
 import com.tillDawn.View.GameView;
-import com.tillDawn.View.PreGameMenuView;
-import sun.jvm.hotspot.gc.g1.HeapRegion;
 
 public class GameController {
     private HeroType heroType;
@@ -18,6 +17,7 @@ public class GameController {
     private PlayerController playerController;
     private WorldController worldController;
     private WeaponController weaponController;
+    private boolean isPaused = false;
 
     public GameController (HeroType heroType, WeaponType weaponType, int duration) {
         this.heroType = heroType;
@@ -34,11 +34,15 @@ public class GameController {
     }
 
     public void updateGame(float delta) {
-        if (view != null) {
+        if (view != null && !isPaused) {
             remainingTime -= delta;
-            if (remainingTime < 0) {
+            if (remainingTime <= 0) {
                 remainingTime = 0;
-                endGame();
+                winGame();
+            }
+            if (playerController.getPlayer().getHp() <= 0) {
+                playerController.getPlayer().setHp(0);
+                loseGame();
             }
             view.updateTimerDisplay((int) remainingTime);
 
@@ -73,7 +77,42 @@ public class GameController {
         this.weaponType = weaponType;
     }
 
-    public void endGame() {
+    public void winGame() {
+        com.tilldawn.Main.getMain().setScreen(new EndMenuView(new EndMenuController(playerController.getPlayer(), "You survived!", true, duration * 60),
+            GameAssetManager.getGameAssetManager().getSkin()));
+    }
 
+    public void loseGame() {
+        com.tilldawn.Main.getMain().setScreen(new EndMenuView(new EndMenuController(playerController.getPlayer(), "You died!", false, duration * 60 - (int) remainingTime),
+            GameAssetManager.getGameAssetManager().getSkin()));
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
+
+    public void setPaused(boolean paused) {
+        isPaused = paused;
+    }
+
+    public void giveUp () {
+        com.tilldawn.Main.getMain().setScreen(new EndMenuView(new EndMenuController(playerController.getPlayer(), "You gave up!", false, duration * 60 - (int) remainingTime),
+            GameAssetManager.getGameAssetManager().getSkin()));
+    }
+
+    public void cheatReduceTime() {
+        remainingTime -= 10;
+    }
+
+    public void cheatReduceHp() {
+        playerController.getPlayer().reduceHp(1);
+    }
+
+    public void cheatIncreaseHp() {
+        playerController.getPlayer().addHp(1);
+    }
+
+    public void cheatAddExp() {
+        playerController.getPlayer().addExp(10);
     }
 }

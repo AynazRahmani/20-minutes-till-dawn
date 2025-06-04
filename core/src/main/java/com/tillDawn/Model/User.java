@@ -4,6 +4,7 @@ import com.tillDawn.Model.Enums.HeroType;
 import com.tillDawn.Model.Enums.WeaponType;
 
 public class User {
+    private int usrID;
     public String username;
     public String password;
     public int securityQuestionIndex;
@@ -11,7 +12,9 @@ public class User {
     public String avatarPath;
     private HeroType heroType;
     private WeaponType weaponType;
-    int score;
+    private int score;
+    private int killNumber;
+    private int maxSurvivalTime;
 
     public User(String username, String password, int securityQuestionIndex, String securityAnswer, String avatarPath) {
         this.username = username;
@@ -86,5 +89,29 @@ public class User {
 
     public void addScore(int amount) {
         score += amount;
+    }
+
+    public int getUsrID() {
+        return usrID;
+    }
+
+    public void setUsrID(int usrID) {
+        this.usrID = usrID;
+    }
+
+    public int getKillNumber() {
+        return killNumber;
+    }
+
+    public void addKillNumber(int amount) {
+        killNumber += amount;
+    }
+
+    public int getMaxSurvivalTime() {
+        return maxSurvivalTime;
+    }
+
+    public void setMaxSurvivalTime(int maxSurvivalTime) {
+        this.maxSurvivalTime = maxSurvivalTime;
     }
 }

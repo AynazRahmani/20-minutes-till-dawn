@@ -4,10 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.tillDawn.Model.App;
-import com.tillDawn.Model.GameAssetManager;
-import com.tillDawn.Model.User;
-import com.tillDawn.Model.UserDataManager;
+import com.tillDawn.Model.*;
 import com.tillDawn.View.ForgetPasswordView;
 import com.tillDawn.View.MainMenuView;
 
@@ -57,6 +54,7 @@ public class ForgetPasswordController {
 
         view.getChangePasswordButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                SfxManager.play("click");
 
                 if (user == null) {
                     error.setText("this username doesn't exist!");
@@ -92,6 +90,7 @@ public class ForgetPasswordController {
                 }
 
                 user.setPassword(password);
+                UserDataManager.updateUser(user);
                 com.tilldawn.Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
             }
         });

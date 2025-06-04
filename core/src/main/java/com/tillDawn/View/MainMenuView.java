@@ -146,6 +146,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.tillDawn.Controller.MainMenuController;
 import com.tillDawn.Model.App;
+import com.tillDawn.Model.MusicManager;
 import com.tillDawn.Model.User;
 
 public class MainMenuView implements Screen {
@@ -160,6 +161,7 @@ public class MainMenuView implements Screen {
     private final TextButton profileButton;
     private final TextButton pregameButton;
     private final TextButton scoreboardButton;
+    private final TextButton hintButton;
     private final TextButton continueButton; // NEW
     private final TextButton exitButton;
 
@@ -174,6 +176,7 @@ public class MainMenuView implements Screen {
         this.profileButton = new TextButton("profile menu", skin);
         this.pregameButton = new TextButton("pregame menu", skin);
         this.scoreboardButton = new TextButton("scoreboard", skin);
+        this.hintButton = new TextButton("hint menu", skin);
         this.continueButton = new TextButton("continue saved game", skin); // NEW
         this.exitButton = new TextButton("logout", skin);
 
@@ -188,6 +191,8 @@ public class MainMenuView implements Screen {
 
     @Override
     public void show() {
+        MusicManager.playMusic(App.getCurrentMusicPath(), true);
+
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
@@ -197,17 +202,19 @@ public class MainMenuView implements Screen {
         table.row();
         table.add(gameTitle).pad(20, 0, 35, 0);
         table.row();
-        table.add(pregameButton).pad(15, 0, 15, 0);
+        table.add(pregameButton).pad(5, 0, 5, 0);
         table.row();
-        table.add(settingButton).pad(15, 0, 15, 0);
+        table.add(settingButton).pad(5, 0, 5, 0);
         table.row();
-        table.add(profileButton).pad(15, 0, 15, 0);
+        table.add(profileButton).pad(5, 0, 5, 0);
         table.row();
-        table.add(scoreboardButton).pad(15, 0, 15, 0);
+        table.add(scoreboardButton).pad(5, 0, 5, 0);
         table.row();
-        table.add(continueButton).pad(15, 0, 15, 0); // NEW
+        table.add(hintButton).pad(5, 0, 5, 0);
         table.row();
-        table.add(exitButton).pad(50, 0, 20, 0);
+        table.add(continueButton).pad(5, 0, 5, 0);
+        table.row();
+        table.add(exitButton).pad(5, 0, 5, 0);
 
         stage.addActor(table);
 
@@ -295,5 +302,9 @@ public class MainMenuView implements Screen {
 
     public TextButton getExitButton() {
         return exitButton;
+    }
+
+    public TextButton getHintButton() {
+        return hintButton;
     }
 }

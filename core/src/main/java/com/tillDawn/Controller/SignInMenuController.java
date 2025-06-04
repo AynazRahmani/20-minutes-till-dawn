@@ -4,10 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.tillDawn.Model.App;
-import com.tillDawn.Model.GameAssetManager;
-import com.tillDawn.Model.User;
-import com.tillDawn.Model.UserDataManager;
+import com.tillDawn.Model.*;
 import com.tillDawn.View.ForgetPasswordView;
 import com.tillDawn.View.MainMenuView;
 import com.tillDawn.View.SignInMenuView;
@@ -29,6 +26,7 @@ public class SignInMenuController {
     private void initListeners() {
         view.getSigninButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                SfxManager.play("click");
                 String username = view.getUsernameField().getText().trim();
                 String password = view.getPasswordField().getText();
                 User user;
@@ -53,6 +51,7 @@ public class SignInMenuController {
 
         view.getForgetPasswordButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                SfxManager.play("click");
                 String username = view.getUsernameField().getText().trim();
 
                 User user;

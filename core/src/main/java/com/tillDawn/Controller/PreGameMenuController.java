@@ -26,6 +26,7 @@ public class PreGameMenuController {
     private void initListeners() {
         view.getPlayButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
+                SfxManager.play("click");
                 HeroType heroType = HeroType.values()[view.getSelectHero().getSelectedIndex()];
                 WeaponType weaponType = WeaponType.values()[view.getSelectWeapon().getSelectedIndex()];
                 int duration = Integer.parseInt(view.getSelectDuration().getSelected().toString());
