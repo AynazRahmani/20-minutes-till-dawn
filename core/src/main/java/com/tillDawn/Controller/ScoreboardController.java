@@ -34,7 +34,7 @@ public class ScoreboardController {
                 users = UserDataManager.getTopUsersByScore();
                 break;
         }
-//
+
         if (users == null) {
             users = Collections.emptyList();
         }

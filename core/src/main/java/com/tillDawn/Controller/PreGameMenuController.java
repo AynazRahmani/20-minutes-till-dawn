@@ -49,16 +49,9 @@ public class PreGameMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
+
     }
 
-
-//    public void handlePreGameMenuButtons() {
-//        if (view != null) {
-//            com.tilldawn.Main.getMain().getScreen().dispose();
-////            com.tilldawn.Main.getMain().setScreen(new GameView(new GameController(), GameAssetManager.getGameAssetManager().getSkin()));
-//        }
-//    }
 
     public PreGame getPregame() {
         return pregame;

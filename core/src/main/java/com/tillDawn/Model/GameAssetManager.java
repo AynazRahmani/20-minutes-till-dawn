@@ -30,7 +30,7 @@ public class GameAssetManager {
     private GameAssetManager(){
         loadHeroAnimations();
         loadHeroTextures();
-//        loadWeaponTextures();
+
     }
 
     public static GameAssetManager getGameAssetManager(){
@@ -62,28 +62,11 @@ public class GameAssetManager {
         }
     }
 
-//    private void loadWeaponTextures() {
-//        for (WeaponType weapon : WeaponType.values()) {
-//            String path = "weapons/" + weapon.getName() + ".png"; // مثلاً: weapons/SMG.png
-//            weaponTextures.put(weapon, new Texture(Gdx.files.internal(path)));
-//        }
-//    }
-
 
     public Skin getSkin() {
         return skin;
     }
 
-
-//    public Animation<Texture> getCharacterAnimation (HeroType heroType) {
-//
-//        ArrayList<Texture> frames = new ArrayList<>();
-//        for (int i = 0; i <= 5; i++) {
-//            Texture frame = new Texture(heroType.getHeroNumber() + "/Idle_" + i + ".png");
-//            frames.add(frame);
-//        }
-//        return new Animation<>(0.1, frames);
-//    }
 
     public Animation<Texture> getHeroAnimation(HeroType hero) {
         return heroAnimations.get(hero);
@@ -101,17 +84,14 @@ public class GameAssetManager {
         return "1/Idle_0.png";
     }
 
-//    public Texture getWeaponTexture(WeaponType weapon) {
-//        return weaponTextures.get(weapon);
-//    }
 
 
     public Texture getSmgTexture(){
         return smgTexture;
     }
 
-    public String getSmg(){
-        return smg;
+    public String getSmg(WeaponType type){
+        return "weapon/" + type.getWeaponId() + ".png";
     }
 
     public String getBullet(){

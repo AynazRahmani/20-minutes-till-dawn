@@ -74,7 +74,7 @@ public class MainMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
+
     }
 
     public Skin getSkin() {

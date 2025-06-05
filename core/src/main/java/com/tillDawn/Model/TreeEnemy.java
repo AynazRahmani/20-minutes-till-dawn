@@ -27,7 +27,7 @@ public class TreeEnemy {
     }
 
     public void update() {
-        // درخت ثابت است، نیاز به آپدیت خاصی ندارد
+
     }
 
     public void render(Batch batch) {

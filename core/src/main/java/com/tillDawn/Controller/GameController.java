@@ -5,6 +5,7 @@ import com.tillDawn.Model.Enums.HeroType;
 import com.tillDawn.Model.Enums.WeaponType;
 import com.tillDawn.Model.GameAssetManager;
 import com.tillDawn.Model.Player;
+import com.tillDawn.Model.SfxManager;
 import com.tillDawn.Model.Weapon;
 import com.tillDawn.View.EndMenuView;
 import com.tillDawn.View.GameView;
@@ -50,6 +51,7 @@ public class GameController {
             view.updateTimerDisplay((int) remainingTime);
 
             updateSpeedy();
+            updateWeapon();
             worldController.update();
             playerController.update();
             weaponController.update();
@@ -81,11 +83,13 @@ public class GameController {
     }
 
     public void winGame() {
+        SfxManager.play("win");
         com.tilldawn.Main.getMain().setScreen(new EndMenuView(new EndMenuController(playerController.getPlayer(), "You survived!", true, duration * 60),
             GameAssetManager.getGameAssetManager().getSkin()));
     }
 
     public void loseGame() {
+        SfxManager.play("lose");
         com.tilldawn.Main.getMain().setScreen(new EndMenuView(new EndMenuController(playerController.getPlayer(), "You died!", false, duration * 60 - (int) remainingTime),
             GameAssetManager.getGameAssetManager().getSkin()));
     }
@@ -99,6 +103,7 @@ public class GameController {
     }
 
     public void giveUp () {
+        SfxManager.play("lose");
         com.tilldawn.Main.getMain().setScreen(new EndMenuView(new EndMenuController(playerController.getPlayer(), "You gave up!", false, duration * 60 - (int) remainingTime),
             GameAssetManager.getGameAssetManager().getSkin()));
     }
@@ -154,7 +159,7 @@ public class GameController {
 
     public void ability4() {
         if (playerController.getPlayer().getAbilities().contains(Ability.AMOCREASE)) {
-
+            weaponController.getWeapon().setMaxAmmo(true);
             view.getErrorLabel().setText("AMOCREASE applied");
         }
         else {
@@ -183,5 +188,22 @@ public class GameController {
 
     public WorldController getWorldController() {
         return worldController;
+    }
+
+    public void updateWeapon() {
+        if (weaponController.isReload()) {
+            if (weaponController.getReloadTime() <= 0) {
+                weaponController.setReloadTime(remainingTime);
+            }
+            else {
+                if (weaponController.getReloadTime() - remainingTime >= weaponController.getWeapon().getWeaponType().getReloadTime()) {
+                    weaponController.getWeapon().reload();
+                    weaponController.setReload(false);
+                }
+            }
+        }
+        else {
+            weaponController.setReloadTime(0f);
+        }
     }
 }

@@ -36,7 +36,7 @@ public class HintMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
+
     }
 
     public Skin getSkin() {

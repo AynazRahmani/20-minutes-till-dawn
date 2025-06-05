@@ -16,13 +16,11 @@ public class PauseMenuController {
     private SignInMenuView view;
     private Skin skin;
     private Label error;
-//    private Table table;
 
     public void setView(SignInMenuView view) {
         this.view = view;
         this.skin = GameAssetManager.getGameAssetManager().getSkin();
         this.error = view.getErrorLabel();
-//        this.table = view.getTable();
         initListeners();
     }
 
@@ -46,7 +44,6 @@ public class PauseMenuController {
                 }
 
                 App.setCurrentUser(user);
-//                com.tilldawn.Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), skin));
                 com.tilldawn.Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
             }
         });
@@ -69,7 +66,7 @@ public class PauseMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
+
     }
 
     public Skin getSkin() {

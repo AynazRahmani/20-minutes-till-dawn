@@ -11,13 +11,12 @@ public class ProfileMenuController {
     private ProfileMenuView view;
     private Skin skin;
     private Label error;
-//    private Table table;
+
 
     public void setView(ProfileMenuView view) {
         this.view = view;
         this.skin = GameAssetManager.getGameAssetManager().getSkin();
         this.error = view.getErrorLabel();
-//        this.table = view.getTable();
         initListeners();
     }
 
@@ -104,7 +103,6 @@ public class ProfileMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
     }
 
     public Skin getSkin() {

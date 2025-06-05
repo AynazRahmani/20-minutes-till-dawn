@@ -11,8 +11,10 @@ public class SfxManager {
 
     static {
         soundMap.put("click", Gdx.audio.newSound(Gdx.files.internal("sfx/click.wav")));
-//        soundMap.put("shoot", Gdx.audio.newSound(Gdx.files.internal("sfx/shoot.wav")));
-//        soundMap.put("hit", Gdx.audio.newSound(Gdx.files.internal("sfx/hit.wav")));
+        soundMap.put("shot", Gdx.audio.newSound(Gdx.files.internal("sfx/shot.wav")));
+        soundMap.put("preshot", Gdx.audio.newSound(Gdx.files.internal("sfx/preshot.wav")));
+        soundMap.put("lose", Gdx.audio.newSound(Gdx.files.internal("sfx/lose.wav")));
+        soundMap.put("win", Gdx.audio.newSound(Gdx.files.internal("sfx/win.wav")));
     }
 
     public static void play(String soundName) {

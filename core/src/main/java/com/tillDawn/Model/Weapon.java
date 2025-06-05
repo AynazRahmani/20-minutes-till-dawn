@@ -8,16 +8,21 @@ import com.tillDawn.Model.Enums.WeaponType;
 public class Weapon {
 
     private WeaponType weaponType;
-    private final Texture smgTexture = new Texture(GameAssetManager.getGameAssetManager().getSmg());
-    private Sprite smgSprite = new Sprite(smgTexture);
-    private int ammo = 30;
+    private final Texture smgTexture;
+    private Sprite smgSprite;
+    private int ammo;
+    private boolean maxAmmo = false;
 
     public Weapon(WeaponType weaponType){
+        this.weaponType = weaponType;
+        smgTexture  = new Texture(GameAssetManager.getGameAssetManager().getSmg(weaponType));
+        smgSprite = new Sprite(smgTexture);
         smgSprite.setX((float) Gdx.graphics.getWidth() / 2 );
         smgSprite.setY((float) Gdx.graphics.getHeight() / 2);
         smgSprite.setSize(50,50);
 
-        this.weaponType = weaponType;
+        ammo = weaponType.getAmmoMax();
+
     }
 
     public Sprite getSmgSprite() {
@@ -38,5 +43,27 @@ public class Weapon {
 
     public void setWeaponType(WeaponType weaponType) {
         this.weaponType = weaponType;
+    }
+
+    public void reduceAmmo(int amount) {
+        ammo -= amount;
+    }
+
+
+    public boolean isMaxAmmo() {
+        return maxAmmo;
+    }
+
+    public void setMaxAmmo(boolean maxAmmo) {
+        this.maxAmmo = maxAmmo;
+    }
+
+    public void reload() {
+        if (maxAmmo) {
+            ammo = weaponType.getAmmoMax() + 5;
+        }
+        else {
+            ammo = weaponType.getAmmoMax();
+        }
     }
 }

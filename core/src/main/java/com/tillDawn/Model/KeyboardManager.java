@@ -51,5 +51,9 @@ public class KeyboardManager {
         }
     }
 
+    public boolean reload() {
+        return Gdx.input.isKeyPressed(Input.Keys.R);
+    }
+
 
 }

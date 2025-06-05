@@ -114,7 +114,6 @@ public class ForgetPasswordView implements Screen {
         this.user = user;
     }
 
-    // Getters
     public User getUser() { return user; }
     public TextField getPasswordField() { return passwordField; }
     public TextButton getChangePasswordButton() { return changePasswordButton; }

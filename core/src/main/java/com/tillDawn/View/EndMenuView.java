@@ -90,7 +90,6 @@ public class EndMenuView implements Screen {
 
         stage.addActor(table);
 
-//        table.setDebug(true);
     }
 
     @Override
@@ -111,8 +110,6 @@ public class EndMenuView implements Screen {
     @Override public void resume() {}
     @Override public void hide() {}
     @Override public void dispose() {}
-
-    // Getters
 
     public TextButton getExitButton() { return exitButton; }
 

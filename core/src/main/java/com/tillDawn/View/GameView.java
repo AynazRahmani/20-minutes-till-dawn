@@ -56,7 +56,7 @@ public class GameView implements Screen, InputProcessor {
 
     @Override
     public void show() {
-        MusicManager.playMusic(App.getCurrentMusicPath(), true);
+//        MusicManager.playMusic(App.getCurrentMusicPath(), true);
 
         camera = new OrthographicCamera();
         viewport = new FitViewport(V_WIDTH, V_HEIGHT, camera);
@@ -206,7 +206,7 @@ public class GameView implements Screen, InputProcessor {
         bossFightBtn.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO: باس فایت
+                // TODO: boss fight
             }
         });
 
@@ -389,7 +389,7 @@ public class GameView implements Screen, InputProcessor {
     }
 
     public void updateAmmoDisplay() {
-//        killLabel.setText("kills: " + controller.getPlayerController().getPlayer().getKillsNumber());
+        ammoLabel.setText("remained shots: " + controller.getWeaponController().getWeapon().getAmmo());
     }
 
     public void updateLevelDisplay() {

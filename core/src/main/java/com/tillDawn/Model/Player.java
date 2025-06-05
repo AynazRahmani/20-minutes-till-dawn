@@ -28,7 +28,7 @@ public class Player {
 
     public Player(HeroType heroType) {
         this.heroType = heroType;
-//        playerTexture = new Texture(GameAssetManager.getGameAssetManager().getHeroPath(heroType));
+
         float startX = (float) Gdx.graphics.getWidth() / 2;
         float startY = (float) Gdx.graphics.getHeight() / 2;
 

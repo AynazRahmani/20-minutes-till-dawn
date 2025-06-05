@@ -149,8 +149,7 @@ public class SignupMenuView implements Screen {
     @Override public void resume() {}
     @Override public void hide() {}
     @Override public void dispose() {}
-
-    // Getters
+    
     public TextField getUsernameField() { return usernameField; }
     public TextField getPasswordField() { return passwordField; }
     public SelectBox<String> getQuestionBox() { return questionBox; }

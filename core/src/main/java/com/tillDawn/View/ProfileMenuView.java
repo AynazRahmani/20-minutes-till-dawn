@@ -112,7 +112,7 @@ public class ProfileMenuView implements Screen {
     @Override public void hide() {}
     @Override public void dispose() {}
 
-    // Getters
+
     public TextField getUsernameField() { return usernameField; }
     public TextField getPasswordField() { return passwordField; }
     public TextButton getDeleteAccount() { return deleteAccount; }

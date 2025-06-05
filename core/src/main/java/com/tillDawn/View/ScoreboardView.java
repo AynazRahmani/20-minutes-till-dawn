@@ -102,7 +102,6 @@ public class ScoreboardView implements Screen {
         int rank = 1;
         for (User user : users) {
 
-            // علامت رتبه
             Image icon = null;
             if (rank == 1) {
                 icon = new Image(new Texture(Gdx.files.internal("medal/gold.png")));
@@ -118,7 +117,7 @@ public class ScoreboardView implements Screen {
             Label timeAlive = new Label(Integer.toString(user.getMaxSurvivalTime()), skin);
 
             if (App.getCurrentUser() != null && user.getUsername().equals(App.getCurrentUser().getUsername())) {
-                username.setColor(0, 1, 0, 1); // سبز روشن
+                username.setColor(0, 1, 0, 1);
                 score.setColor(0, 1, 0, 1);
                 kills.setColor(0, 1, 0, 1);
                 timeAlive.setColor(0, 1, 0, 1);
@@ -129,7 +128,7 @@ public class ScoreboardView implements Screen {
             if (icon != null) {
                 row.add(icon).size(24).pad(5);
             } else {
-                row.add().width(24).pad(5); // برای حفظ چینش
+                row.add().width(24).pad(5);
             }
 
             row.add(username).width(200).pad(5);

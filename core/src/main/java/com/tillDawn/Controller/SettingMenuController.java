@@ -15,12 +15,11 @@ public class SettingMenuController {
     private SettingMenuView view;
     private Skin skin;
     private Label error;
-//    private Table table;
+
 
     public void setView(SettingMenuView view) {
         this.view = view;
         this.skin = GameAssetManager.getGameAssetManager().getSkin();
-//        this.table = view.getTable();
         initListeners();
     }
 
@@ -61,7 +60,7 @@ public class SettingMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
+
     }
 
     public Skin getSkin() {

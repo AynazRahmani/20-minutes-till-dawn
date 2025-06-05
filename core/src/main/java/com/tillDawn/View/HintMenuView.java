@@ -149,7 +149,7 @@ public class HintMenuView implements Screen {
     @Override public void hide() {}
     @Override public void dispose() {}
 
-    // Getters
+
 
     public TextButton getExitButton() { return exitButton; }
     public Label getErrorLabel() {

@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.tillDawn.Model.Bullet;
+import com.tillDawn.Model.Enums.WeaponType;
+import com.tillDawn.Model.SfxManager;
 import com.tillDawn.Model.Weapon;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.ArrayList;
 public class WeaponController {
     private Weapon weapon;
     private ArrayList<Bullet> bullets = new ArrayList<>();
+    private boolean reload = false;
+    private float reloadTime = 0f;
 
     public WeaponController(Weapon weapon){
         this.weapon = weapon;
@@ -34,13 +38,19 @@ public class WeaponController {
     }
 
     public void handleWeaponShoot(int mouseX, int mouseY){
-        Sprite weaponSprite = weapon.getSmgSprite();
+        if (weapon.getAmmo() > 0 && !reload){
+            if (weapon.getWeaponType() == WeaponType.SMG) {
+                SfxManager.play("preshot");
+            }
+            SfxManager.play("shot");
+            Sprite weaponSprite = weapon.getSmgSprite();
 
-        float startX = weaponSprite.getX();
-        float startY = weaponSprite.getY();
+            float startX = weaponSprite.getX();
+            float startY = weaponSprite.getY();
 
-        bullets.add(new Bullet(startX, startY, mouseX, mouseY));
-        weapon.setAmmo(weapon.getAmmo() - 1);
+            bullets.add(new Bullet(startX, startY, mouseX, mouseY));
+            weapon.reduceAmmo(1);
+        }
     }
 
 
@@ -64,6 +74,30 @@ public class WeaponController {
             playerSprite.getX() + offsetX,
             playerSprite.getY() + offsetY
         );
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
+    }
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
+    }
+
+    public boolean isReload() {
+        return reload;
+    }
+
+    public void setReload(boolean reload) {
+        this.reload = reload;
+    }
+
+    public float getReloadTime() {
+        return reloadTime;
+    }
+
+    public void setReloadTime(float reloadTime) {
+        this.reloadTime = reloadTime;
     }
 
 }

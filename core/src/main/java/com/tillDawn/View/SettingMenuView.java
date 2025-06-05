@@ -125,8 +125,6 @@ public class SettingMenuView implements Screen {
     @Override public void hide() {}
     @Override public void dispose() {}
 
-    // Getters
-
 
     public SelectBox<String> getMusic() {
         return music;
@@ -156,7 +154,4 @@ public class SettingMenuView implements Screen {
         this.volumeSlider = volumeSlider;
     }
 
-//    public TextButton getMuteButton() {
-//        return muteButton;
-//    }
 }

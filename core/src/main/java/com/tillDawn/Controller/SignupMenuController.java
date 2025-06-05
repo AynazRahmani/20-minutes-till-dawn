@@ -15,13 +15,13 @@ public class SignupMenuController {
     private SignupMenuView view;
     private Skin skin;
     private Label error;
-//    private Table table;
+
 
     public void setView(SignupMenuView view) {
         this.view = view;
         this.skin = GameAssetManager.getGameAssetManager().getSkin();
         this.error = view.getErrorLabel();
-//        this.table = view.getTable();
+
         initListeners();
     }
 
@@ -75,7 +75,6 @@ public class SignupMenuController {
                 User user = new User(username, password, questionIndex, answer, avatar);
                 UserDataManager.addUser(user);
                 App.setCurrentUser(user);
-//                com.tilldawn.Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), skin));
                 com.tilldawn.Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
             }
         });
@@ -96,7 +95,6 @@ public class SignupMenuController {
     }
 
     public void handleButtons() {
-        // handled via listeners
     }
 
     public Skin getSkin() {

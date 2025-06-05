@@ -38,7 +38,7 @@ public class UserDataManager {
     }
 
     public static String getRandomAvatarPath() {
-        int num = new Random().nextInt(3) + 1; // avatar1.png to avatar5.png
+        int num = new Random().nextInt(3) + 1;
         return "avatars/avatar" + num + ".png";
     }
 

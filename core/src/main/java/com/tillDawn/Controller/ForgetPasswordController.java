@@ -28,29 +28,6 @@ public class ForgetPasswordController {
     }
 
     private void initListeners() {
-//        view.getSigninButton().addListener(new ClickListener() {
-//            public void clicked(InputEvent event, float x, float y) {
-//                String username = view.getUsernameField().getText().trim();
-//                String password = view.getPasswordField().getText();
-//                User user;
-//
-//                if ((user = UserDataManager.findUser(username)) == null) {
-//                    error.setText("this username doesn't exist!");
-//                    view.getTable().invalidateHierarchy();
-//                    return;
-//                }
-//
-//                if (!user.getPassword().equals(password)) {
-//                    error.setText("incorrect password!");
-//                    view.getTable().invalidateHierarchy();
-//                    return;
-//                }
-//
-//                App.setCurrentUser(user);
-////                com.tilldawn.Main.getMain().setScreen(new PreGameMenuView(new PreGameMenuController(), skin));
-//                com.tilldawn.Main.getMain().setScreen(new MainMenuView(new MainMenuController(), skin));
-//            }
-//        });
 
         view.getChangePasswordButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {

@@ -54,7 +54,7 @@ public class WorldController {
     private boolean playerIsTooClose(float x, float y) {
 //        float px = playerController.getPlayer().getX();
 //        float py = playerController.getPlayer().getY();
-//        return Vector2.dst(x, y, px, py) < 150; // مثلاً کمتر از ۱۵۰ پیکسل نباشن
+//        return Vector2.dst(x, y, px, py) < 150;
         return false;
     }
 

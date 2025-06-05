@@ -84,6 +84,10 @@ public class PlayerController {
             }
         }
 
+        if (App.getKeyboardManager().reload()) {
+            weaponController.setReload(true);
+        }
+
         player.setPlayerIdle(!moving);
     }
 
