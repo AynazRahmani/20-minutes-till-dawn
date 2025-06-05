@@ -5,57 +5,83 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.tillDawn.Model.App;
+import com.tillDawn.Model.*;
 import com.tillDawn.Model.Enums.Ability;
-import com.tillDawn.Model.GameAssetManager;
-import com.tillDawn.Model.KeyboardManager;
-import com.tillDawn.Model.Player;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class PlayerController {
+    private WorldController worldController;
+    private WeaponController weaponController;
     private Player player;
+    private float speedyDeadline;
+    private boolean isSpeedy;
 
-    public PlayerController(Player player) {
+    public PlayerController(Player player, WorldController worldController, WeaponController weaponController) {
         this.player = player;
+        this.worldController = worldController;
+        this.weaponController = weaponController;
     }
 
     public void update() {
         handlePlayerInput();
-        idleAnimation();
-        player.getPlayerSprite().draw(com.tilldawn.Main.getBatch());
         handleAbility();
         handleLevel();
+        handleHp();
+        idleAnimation();
+        player.getPlayerSprite().draw(com.tilldawn.Main.getBatch());
+        weaponController.syncWeaponWithPlayer(player.getPlayerSprite());
+
     }
 
     public void handlePlayerInput() {
         Sprite sprite = player.getPlayerSprite();
         boolean moving = false;
 
+        float speed = player.getSpeed();
+
+        if (isSpeedy) {
+            speed = player.getSpeed() * 2;
+        }
+
+        CollisionRect newRect = new CollisionRect(player.getRect().getX(), player.getRect().getY(), player.getRect().getWidth(), player.getRect().getHeight());
         if (App.getKeyboardManager().isUp()) {
-            sprite.translateY(player.getSpeed());
-            moving = true;
+            newRect.setY(newRect.getY() + speed);
+            if (!worldController.isBlocked(newRect)) {
+                sprite.translateY(speed);
+                moving = true;
+            }
         }
         if (App.getKeyboardManager().isDown()) {
-            sprite.translateY(-player.getSpeed());
-            moving = true;
+            newRect.setY(newRect.getY() - speed);
+            if (!worldController.isBlocked(newRect)) {
+                sprite.translateY(-speed);
+                moving = true;
+            }
         }
         if (App.getKeyboardManager().isRight()) {
-            if (!player.isFacingRight()) {
-                sprite.flip(true, false);
-                player.setFacingRight(true);
+            newRect.setY(newRect.getX() + speed);
+            if (!worldController.isBlocked(newRect)) {
+                if (!player.isFacingRight()) {
+                    sprite.flip(true, false);
+                    player.setFacingRight(true);
+                }
+                sprite.translateX(speed);
+                moving = true;
             }
-            sprite.translateX(player.getSpeed());
-            moving = true;
+
         }
         if (App.getKeyboardManager().isLeft()) {
-            if (player.isFacingRight()) {
-                sprite.flip(true, false);
-                player.setFacingRight(false);
+            newRect.setY(newRect.getX() - speed);
+            if (!worldController.isBlocked(newRect)) {
+                if (player.isFacingRight()) {
+                    sprite.flip(true, false);
+                    player.setFacingRight(false);
+                }
+                sprite.translateX(-speed);
+                moving = true;
             }
-            sprite.translateX(-player.getSpeed());
-            moving = true;
         }
 
         player.setPlayerIdle(!moving);
@@ -79,10 +105,13 @@ public class PlayerController {
     }
 
     public void handleLevel() {
-        int level = player.getLevel();
         int exp = player.getExp();
-        if (level * (level - 1) < exp / 10) {
-            player.setLevel(level + 1);
+
+        for (int n = 0; n < 100; n++) {
+            if (exp >= n * (n - 1) * 10 && exp < n * (n + 1) * 10) {
+                player.setLevel(n);
+                return;
+            }
         }
     }
 
@@ -95,7 +124,39 @@ public class PlayerController {
                 availableAbilities.add(a);
             }
         }
-        int num = new Random().nextInt(availableAbilities.size());
-        player.addAbility(availableAbilities.get(num));
+        if (!availableAbilities.isEmpty()) {
+            int num = new Random().nextInt(availableAbilities.size());
+            player.addAbility(availableAbilities.get(num));
+        }
+    }
+
+    public float getSpeedyDeadline() {
+        return speedyDeadline;
+    }
+
+    public void setSpeedyDeadline(float speedyDeadline) {
+        this.speedyDeadline = speedyDeadline;
+    }
+
+    public boolean isSpeedy() {
+        return isSpeedy;
+    }
+
+    public void setSpeedy(boolean speedy) {
+        isSpeedy = speedy;
+    }
+
+    public WorldController getWorldController() {
+        return worldController;
+    }
+
+    public void setWorldController(WorldController worldController) {
+        this.worldController = worldController;
+    }
+
+    public void handleHp() {
+        if (worldController.isClose(player.getRect())) {
+            player.reduceHp(1);
+        }
     }
 }

@@ -33,21 +33,37 @@ public class WeaponController {
         weaponSprite.setRotation((float) (3.14 - angle * MathUtils.radiansToDegrees));
     }
 
-    public void handleWeaponShoot(int x, int y){
-        bullets.add(new Bullet(x, y));
+    public void handleWeaponShoot(int mouseX, int mouseY){
+        Sprite weaponSprite = weapon.getSmgSprite();
+
+        float startX = weaponSprite.getX();
+        float startY = weaponSprite.getY();
+
+        bullets.add(new Bullet(startX, startY, mouseX, mouseY));
         weapon.setAmmo(weapon.getAmmo() - 1);
     }
 
-    public void updateBullets() {
-        for(Bullet b : bullets) {
-            b.getSprite().draw(com.tilldawn.Main.getBatch());
-            Vector2 direction = new Vector2(
-                Gdx.graphics.getWidth()/2f - b.getX(),
-                Gdx.graphics.getHeight()/2f - b.getY()
-            ).nor();
 
-            b.getSprite().setX(b.getSprite().getX() - direction.x * 5);
-            b.getSprite().setY(b.getSprite().getY() + direction.y * 5);
+    public void updateBullets() {
+        for (Bullet b : bullets) {
+            b.getSprite().draw(com.tilldawn.Main.getBatch());
+
+            b.getSprite().translate(b.getDirection().x * 5, b.getDirection().y * 5);
         }
     }
+
+
+
+    public void syncWeaponWithPlayer(Sprite playerSprite) {
+        Sprite weaponSprite = weapon.getSmgSprite();
+
+        float offsetX = playerSprite.getWidth() / 2f;
+        float offsetY = playerSprite.getHeight() / 3f;
+
+        weaponSprite.setPosition(
+            playerSprite.getX() + offsetX,
+            playerSprite.getY() + offsetY
+        );
+    }
+
 }

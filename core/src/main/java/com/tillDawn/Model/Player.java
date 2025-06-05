@@ -12,7 +12,6 @@ public class Player {
     private HeroType heroType;
     private Texture playerTexture = new Texture(GameAssetManager.getGameAssetManager().getHeroPath(heroType));
     private Sprite playerSprite = new Sprite(playerTexture);
-    private float playerHealth = 100;
     private CollisionRect rect;
     private float time = 0;
     private float speed;
@@ -44,14 +43,6 @@ public class Player {
 
     public Sprite getPlayerSprite() {
         return playerSprite;
-    }
-
-    public float getPlayerHealth() {
-        return playerHealth;
-    }
-
-    public void setPlayerHealth(float playerHealth) {
-        this.playerHealth = playerHealth;
     }
 
     public CollisionRect getRect() {

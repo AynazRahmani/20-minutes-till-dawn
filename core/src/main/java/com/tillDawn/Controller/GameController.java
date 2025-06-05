@@ -1,5 +1,6 @@
 package com.tillDawn.Controller;
 
+import com.tillDawn.Model.Enums.Ability;
 import com.tillDawn.Model.Enums.HeroType;
 import com.tillDawn.Model.Enums.WeaponType;
 import com.tillDawn.Model.GameAssetManager;
@@ -28,9 +29,11 @@ public class GameController {
 
     public void setView(GameView view) {
         this.view = view;
-        playerController = new PlayerController(new Player(heroType));
+
         worldController = new WorldController(playerController);
         weaponController = new WeaponController(new Weapon(weaponType));
+        worldController.generateTrees(30);
+        playerController = new PlayerController(new Player(heroType), worldController, weaponController);
     }
 
     public void updateGame(float delta) {
@@ -46,7 +49,7 @@ public class GameController {
             }
             view.updateTimerDisplay((int) remainingTime);
 
-
+            updateSpeedy();
             worldController.update();
             playerController.update();
             weaponController.update();
@@ -120,5 +123,65 @@ public class GameController {
         playerController.getPlayer().setHpMaxIncreased(true);
     }
 
-    
+    public void ability1() {
+        if (playerController.getPlayer().getAbilities().contains(Ability.VITALITY)) {
+            playerController.getPlayer().setHpMaxIncreased(true);
+            view.getErrorLabel().setText("VITALITY applied");
+        }
+        else {
+            view.getErrorLabel().setText("VITALITY's unavailable!");
+        }
+    }
+
+    public void ability2() {
+        if (playerController.getPlayer().getAbilities().contains(Ability.DAMAGER)) {
+            view.getErrorLabel().setText("DAMAGER applied");
+        }
+        else {
+            view.getErrorLabel().setText("DAMAGER's unavailable!");
+        }
+    }
+
+    public void ability3() {
+        if (playerController.getPlayer().getAbilities().contains(Ability.PROCREASE)) {
+
+            view.getErrorLabel().setText("PROCREASE applied");
+        }
+        else {
+            view.getErrorLabel().setText("PROCREASE's unavailable!");
+        }
+    }
+
+    public void ability4() {
+        if (playerController.getPlayer().getAbilities().contains(Ability.AMOCREASE)) {
+
+            view.getErrorLabel().setText("AMOCREASE applied");
+        }
+        else {
+            view.getErrorLabel().setText("AMOCREASE's unavailable!");
+        }
+    }
+
+    public void ability5() {
+        if (playerController.getPlayer().getAbilities().contains(Ability.SPEEDY)) {
+            playerController.setSpeedy(true);
+            playerController.setSpeedyDeadline(Math.max(remainingTime - 10, 0));
+            view.getErrorLabel().setText("SPEEDY applied");
+        }
+        else {
+            view.getErrorLabel().setText("SPEEDY's unavailable!");
+        }
+    }
+
+    public void updateSpeedy() {
+        if (playerController.isSpeedy()) {
+            if (remainingTime < getPlayerController().getSpeedyDeadline()) {
+                playerController.setSpeedy(false);
+            }
+        }
+    }
+
+    public WorldController getWorldController() {
+        return worldController;
+    }
 }

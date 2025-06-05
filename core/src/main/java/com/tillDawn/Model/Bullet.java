@@ -1,27 +1,20 @@
 package com.tillDawn.Model;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 
 public class Bullet {
-
     private Texture texture = new Texture(GameAssetManager.getGameAssetManager().getBullet());
     private Sprite sprite = new Sprite(texture);
     private int damage = 5;
-    private int x;
-    private int y;
+    private Vector2 direction;
 
-    public Bullet(int x, int y){
-        sprite.setSize(20 , 20);
-        this.x = x;
-        this.y = y;
-        sprite.setX((float) Gdx.graphics.getWidth() / 2);
-        sprite.setY((float) Gdx.graphics.getHeight() / 2);
-    }
+    public Bullet(float startX, float startY, float targetX, float targetY){
+        sprite.setSize(20, 20);
+        sprite.setPosition(startX, startY);
 
-    public Texture getTexture() {
-        return texture;
+        direction = new Vector2(targetX - startX, targetY - startY).nor();
     }
 
     public Sprite getSprite() {
@@ -32,11 +25,7 @@ public class Bullet {
         return damage;
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+    public Vector2 getDirection() {
+        return direction;
     }
 }
